@@ -36,6 +36,12 @@ public class TerminalListener {
             if (info.getCommand().equals(EXIT)) {
                 break;
             }
+            
+            if (info.getCommand().equals(SCAN)) {
+                String path = info.getArguments()[1];
+                ScanExecutor se = new ScanExecutor(path);
+                se.execute();
+            }
         }
     }
 }
