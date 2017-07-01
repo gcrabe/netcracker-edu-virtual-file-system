@@ -5,6 +5,8 @@
  */
 package com.nc.edu.vfs;
 
+import com.nc.edu.vfs.terminal.TerminalListener;
+
 /**
  *
  * @author gc
@@ -12,7 +14,10 @@ package com.nc.edu.vfs;
 public class Solution {
     
     public static void main(String[] args) {
-        TerminalInterfaceHelper.initApplication();
+        System.out.print("Welcome to File System Manager!\n");
+        System.out.print("Write \'exit\' for exit from the application.\n");
+        System.out.print("Write \'help\' for help infarmation.\n");
+        
         TerminalListener.waitForCommand();
     }
 }

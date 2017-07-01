@@ -3,8 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nc.edu.vfs;
+package com.nc.edu.vfs.terminal;
 
+import com.nc.edu.vfs.command.CommandInfo;
+import com.nc.edu.vfs.command.CommandParser;
+import com.nc.edu.vfs.executors.CpExecutor;
+import com.nc.edu.vfs.executors.RmExecutor;
+import com.nc.edu.vfs.executors.ScanExecutor;
 import java.util.Scanner;
 
 /**
@@ -21,16 +26,21 @@ public class TerminalListener {
     private static final String RM = "rm";
     private static final String ERROR  = "error";
     
+    private static ScanExecutor se;
+    private static RmExecutor re;
+    private static CpExecutor ce;
+    
     public static void waitForCommand() {
         Scanner scanner = new Scanner(System.in);
         
         while (true) {
-            TerminalInterfaceHelper.writePrompt();
+            System.out.print("> ");
+            
             String commandLine = scanner.nextLine();
             CommandInfo info = CommandParser.parseCommand(commandLine);
             
             if (info.getCommand().equals(ERROR)) {
-                System.out.print("Error: Command not supported!");
+                System.out.print("Error: Command not supported!\n");
             }
             
             if (info.getCommand().equals(EXIT)) {
@@ -39,8 +49,21 @@ public class TerminalListener {
             
             if (info.getCommand().equals(SCAN)) {
                 String path = info.getArguments()[1];
-                ScanExecutor se = new ScanExecutor(path);
+                se = new ScanExecutor(path);
                 se.execute();
+            }
+            
+            if (info.getCommand().equals(RM)) {
+                String path = info.getArguments()[1];
+                re = new RmExecutor(path);
+                re.execute();
+            }
+            
+            if (info.getCommand().equals(CP)) {
+                String from = info.getArguments()[1];
+                String dest = info.getArguments()[2];
+                ce = new CpExecutor(from, dest);
+                ce.execute();
             }
         }
     }

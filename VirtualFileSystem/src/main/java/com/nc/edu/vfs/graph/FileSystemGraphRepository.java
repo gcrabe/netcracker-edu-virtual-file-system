@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nc.edu.vfs;
+package com.nc.edu.vfs.graph;
 
 /**
  *
@@ -23,5 +23,13 @@ public class FileSystemGraphRepository {
     
     public static void cerrGraph() {
         GRAPH.cerr();
+    }
+    
+    public static void deleteSubtree(String path) {
+        GRAPH.deleteSubtree(path);
+    }
+
+    public static int checkParentByPath(String path) {
+        return GRAPH.checkParentByPath(path);
     }
 }

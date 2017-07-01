@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nc.edu.vfs;
+package com.nc.edu.vfs.executors;
 
+import com.nc.edu.vfs.graph.Vertex;
+import com.nc.edu.vfs.graph.FileSystemGraphRepository;
 import java.io.File;
 
 /**
@@ -13,12 +15,12 @@ import java.io.File;
  */
 public class ScanExecutor {
     
-    private static int idVertex = 0;
-    
     private String path;
+    private static int id;
     
     public ScanExecutor(String path) {
         this.path = path;
+        id = 0;
     }
     
     public String getPath() {
@@ -29,12 +31,21 @@ public class ScanExecutor {
         this.path = path;
     }
     
+    public static int getStaticId() {
+        return id;
+    }
+    
+    public static void increaseId() {
+        id++;
+    }
+    
     public void rec(File dir, int dirNum) {
         File[] children = dir.listFiles();
         int[] nums = new int[children.length];
         
         for (int i = 0; i < children.length; i++) {
-            Vertex vertex = new Vertex(dirNum, nums[i]++, children[i].getAbsolutePath());
+            nums[i] = ++id;
+            Vertex vertex = new Vertex(nums[i], dirNum, children[i].getAbsolutePath());
             FileSystemGraphRepository.pushVertex(vertex);
         }
         
@@ -48,7 +59,8 @@ public class ScanExecutor {
     public void execute() {
         File rootDirectory = new File(path);
         
-        System.out.println(rootDirectory.getAbsolutePath());
+        //System.err.println(rootDirectory.getAbsolutePath());
+        
         if (!rootDirectory.exists()) {
             System.out.println("Error: can't open dir!");
             return;
@@ -60,8 +72,10 @@ public class ScanExecutor {
         }
         
         //database.clear
+        
         FileSystemGraphRepository.clearGraph();
         rec(rootDirectory, 0);
+        
         //graph.to_base
         
         FileSystemGraphRepository.cerrGraph();
