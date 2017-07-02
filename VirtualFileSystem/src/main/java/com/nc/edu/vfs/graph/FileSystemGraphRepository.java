@@ -5,6 +5,8 @@
  */
 package com.nc.edu.vfs.graph;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author gc
@@ -39,5 +41,9 @@ public class FileSystemGraphRepository {
 
     public static boolean contains(String path) {
         return GRAPH.contains(path);
+    }
+    
+    public static ArrayList<Vertex> getAll() {
+        return GRAPH.getAll();
     }
 }

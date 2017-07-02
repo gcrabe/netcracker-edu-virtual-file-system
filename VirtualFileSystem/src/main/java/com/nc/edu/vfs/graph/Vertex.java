@@ -14,11 +14,13 @@ public class Vertex {
     private int id;
     private int parent;
     private String name;
+    private String type;
     
-    public Vertex(int id, int parent, String name) {
+    public Vertex(int id, int parent, String name, String type) {
         this.id = id;
         this.parent = parent;
         this.name = name;
+        this.type = type;
     }
     
     public int getId() {
@@ -43,6 +45,14 @@ public class Vertex {
     
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String getType() {
+        return type;
+    }
+    
+    public void setType(String type) {
+        this.type = type;
     }
     
     @Override

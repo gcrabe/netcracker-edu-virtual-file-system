@@ -5,6 +5,7 @@
  */
 package com.nc.edu.vfs.executors;
 
+import com.nc.edu.vfs.database.DbGateway;
 import com.nc.edu.vfs.graph.Vertex;
 import com.nc.edu.vfs.graph.FileSystemGraphRepository;
 import java.io.File;
@@ -15,20 +16,20 @@ import java.io.File;
  */
 public class ScanExecutor {
     
-    private String path;
+    private static String path;
     private static int id;
     
     public ScanExecutor(String path) {
-        this.path = path;
+        ScanExecutor.path = path;
         id = 0;
     }
     
-    public String getPath() {
+    public static String getPath() {
         return path;
     }
     
     public void setPath(String path) {
-        this.path = path;
+        ScanExecutor.path = path;
     }
     
     public static int getStaticId() {
@@ -44,8 +45,9 @@ public class ScanExecutor {
         int[] nums = new int[children.length];
         
         for (int i = 0; i < children.length; i++) {
+            String type = children[i].isFile() ? "file" : "folder";
             nums[i] = ++id;
-            Vertex vertex = new Vertex(nums[i], dirNum, children[i].getAbsolutePath());
+            Vertex vertex = new Vertex(nums[i], dirNum, children[i].getAbsolutePath(), type);
             String parentPath = dir.getAbsolutePath();
             FileSystemGraphRepository.pushVertex(vertex, parentPath);
         }
@@ -70,12 +72,12 @@ public class ScanExecutor {
             return;
         }
         
-        //database.clear
+        DbGateway.clear();
         
         FileSystemGraphRepository.clearGraph();
         rec(rootDirectory, 0);
         
-        //graph.to_base
+        DbGateway.update();
         
         FileSystemGraphRepository.cerrGraph();
     }

@@ -5,9 +5,9 @@
  */
 package com.nc.edu.vfs.executors;
 
+import com.nc.edu.vfs.database.DbGateway;
 import com.nc.edu.vfs.graph.FileSystemGraphRepository;
 import com.nc.edu.vfs.graph.Vertex;
-import java.io.File;
 
 /**
  *
@@ -85,11 +85,12 @@ public class CpExecutor {
         }
         
         ScanExecutor.increaseId();
-        Vertex vertex = new Vertex(ScanExecutor.getStaticId(), pos, dest);
+        Vertex vertex = new Vertex(ScanExecutor.getStaticId(), pos, dest, "file");
         
         FileSystemGraphRepository.pushVertex(vertex, parentPath);
         
-        // db.update
+        DbGateway.clear();
+        DbGateway.update();
         
         FileSystemGraphRepository.cerrGraph();
     }

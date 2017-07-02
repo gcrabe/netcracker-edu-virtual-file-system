@@ -5,6 +5,7 @@
  */
 package com.nc.edu.vfs.graph;
 
+import com.nc.edu.vfs.executors.ScanExecutor;
 import java.util.ArrayList;
 
 /**
@@ -155,5 +156,20 @@ public class FileSystemGraph {
         }
         
         return false;
+    }
+    
+    public ArrayList<Vertex> getAll() {
+        ArrayList<Vertex> res = new ArrayList<>();
+        
+        Vertex root = new Vertex(0, 0, ScanExecutor.getPath(), "folder");
+        res.add(root);
+        
+        for (AdjacentList list : graph) {
+            for (Vertex v : list.getNeighbors()) {
+                res.add(v);
+            }
+        }
+        
+        return res;
     }
 }

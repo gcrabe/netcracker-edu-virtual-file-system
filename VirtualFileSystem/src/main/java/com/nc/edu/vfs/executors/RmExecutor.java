@@ -5,8 +5,8 @@
  */
 package com.nc.edu.vfs.executors;
 
+import com.nc.edu.vfs.database.DbGateway;
 import com.nc.edu.vfs.graph.FileSystemGraphRepository;
-import java.io.File;
 
 /**
  *
@@ -36,7 +36,8 @@ public class RmExecutor {
         
         FileSystemGraphRepository.deleteSubtree(path);
         
-        // db.update
+        DbGateway.clear();
+        DbGateway.update();
         
         FileSystemGraphRepository.cerrGraph();
     }
