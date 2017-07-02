@@ -6,6 +6,7 @@
 package com.nc.edu.vfs.command;
 
 import com.nc.edu.vfs.command.CommandInfo;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,8 +17,38 @@ public class CommandParser {
     public static CommandInfo parseCommand(String inputLine) {
         CommandInfo info = null;
         
-        String words[] = inputLine.split(" ");
-        String command = words[0];
+        String inarr[] = inputLine.split(" ");
+        String command = inarr[0];
+        
+        ArrayList<String> list = new ArrayList<>();
+        list.add(command);
+        
+        if (inarr.length > 1) {
+            StringBuilder temp = new StringBuilder();
+            String input = inputLine.substring(inarr[0].length() + 1);
+            boolean open = false;
+            
+            for (char c : input.toCharArray()) {
+                if (c == '\'' && !open) {
+                    open = true;
+                } else if (c == '\'' && open) {
+                    list.add(temp.toString());
+                    temp = new StringBuilder();
+                    open = false;
+                } else if (c == ' ' && !open) {
+                    continue;
+                } else {
+                    temp.append(Character.toString(c));
+                }
+            }
+        }
+        
+        String[] words = new String[list.size()];
+        
+        for (int i = 0; i < words.length; i++) {
+            words[i] = Character.toLowerCase(list.get(i).charAt(0)) + 
+                    list.get(i).substring(1);
+        }
         
         switch (words.length) {
             case 1:

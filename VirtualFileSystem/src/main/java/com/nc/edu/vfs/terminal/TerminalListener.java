@@ -86,6 +86,19 @@ public class TerminalListener {
                     me.execute();
                 }
             }
+            
+            if (info.getCommand().equals(HELP)) {
+                String help = "INFORMATION:\n" +
+                        "Use \' for framing path strings\n" +
+                        "Write full extensions\n" +
+                        "EXAMPLES:\n" + 
+                        "scan \'C:\\Data\'\n" +
+                        "mv \'E:\\Data\\file.txt\' \'E:\\Data\\folder2\\file2.txt\'\n" +
+                        "cp \'e:\\Data\\file.txt\' \'e:\\Data\\folder2\\file2.txt\'\n" +
+                        "rm \'D:\\Users\'\n";
+                
+                System.out.print(help);
+            }
         }
     }
 }
