@@ -46,7 +46,8 @@ public class ScanExecutor {
         for (int i = 0; i < children.length; i++) {
             nums[i] = ++id;
             Vertex vertex = new Vertex(nums[i], dirNum, children[i].getAbsolutePath());
-            FileSystemGraphRepository.pushVertex(vertex);
+            String parentPath = dir.getAbsolutePath();
+            FileSystemGraphRepository.pushVertex(vertex, parentPath);
         }
         
         for (int i = 0; i < children.length; i++) {
@@ -59,15 +60,13 @@ public class ScanExecutor {
     public void execute() {
         File rootDirectory = new File(path);
         
-        //System.err.println(rootDirectory.getAbsolutePath());
-        
         if (!rootDirectory.exists()) {
-            System.out.println("Error: can't open dir!");
+            System.out.print("Error: can't open dir!\n");
             return;
         }
         
         if (!rootDirectory.isDirectory()) {
-            System.out.print("Error: it's not folder");
+            System.out.print("Error: it's not folder!\n");
             return;
         }
         

@@ -17,8 +17,8 @@ public class FileSystemGraphRepository {
         GRAPH.clear();
     }
     
-    public static void pushVertex(Vertex vertex) {
-        GRAPH.pushVertex(vertex);
+    public static void pushVertex(Vertex vertex, String parentPath) {
+        GRAPH.pushVertex(vertex, parentPath);
     }
     
     public static void cerrGraph() {
@@ -31,5 +31,13 @@ public class FileSystemGraphRepository {
 
     public static int checkParentByPath(String path) {
         return GRAPH.checkParentByPath(path);
+    }
+
+    public static String getParentPathById(int pos) {
+        return GRAPH.getParentPathById(pos);
+    }
+
+    public static boolean contains(String path) {
+        return GRAPH.contains(path);
     }
 }

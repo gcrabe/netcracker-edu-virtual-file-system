@@ -19,7 +19,7 @@ public class FileSystemGraph {
         graph = new ArrayList<>();
     }
     
-    public void pushVertex(Vertex vertex) {
+    public void pushVertex(Vertex vertex, String parentPath) {
         boolean contains = false;
         
         for (int i = 0; i < graph.size(); i++) {
@@ -32,7 +32,7 @@ public class FileSystemGraph {
         if (!contains) {
             AdjacentList list = new AdjacentList();
             list.setIndex(vertex.getParent());
-            list.setPath(vertex.getName());
+            list.setPath(parentPath);
             
             ArrayList<Vertex> temp = new ArrayList<>();
             temp.add(vertex);
@@ -92,7 +92,7 @@ public class FileSystemGraph {
         }
         
         if (startVertex == -1) {
-            System.out.print("Error: can't find forder/file by path!");
+            System.out.print("Error: can't find forder/file by path!\n");
             return;
         }
         
@@ -104,7 +104,7 @@ public class FileSystemGraph {
             System.err.print("Line: " + line.getIndex() + "\n");
             
             for (Vertex v : line.getNeighbors()) {
-                System.err.println("id = " + v.getId() + ", name = [" + v.getName() +  "]");
+                System.err.println(v.toString());
             }
         }
     }
@@ -123,5 +123,37 @@ public class FileSystemGraph {
         }
         
         return -1;
+    }
+
+    public String getParentPathById(int pos) {
+        for (AdjacentList list : graph) {
+            if (list.getIndex() == pos) {
+                return list.getPath();
+            }
+            
+            for (Vertex v : list.getNeighbors()) {
+                if (v.getId() == pos) {
+                    return v.getName();
+                }
+            }
+        }
+        
+        return null;
+    }
+
+    public boolean contains(String path) {
+        for (AdjacentList list : graph) {
+            if (list.getPath().equals(path)) {
+                return true;
+            }
+            
+            for (Vertex v : list.getNeighbors()) {
+                if (v.getName().equals(path)) {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
     }
 }

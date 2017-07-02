@@ -29,20 +29,12 @@ public class RmExecutor {
     }
     
     public void execute() {
-        File record = new File(path);
-        
-        if (!record.exists()) {
-            System.out.println("Error: destination point does not exist!");
+        if (!FileSystemGraphRepository.contains(path)) {
+            System.out.print("Error: destination point does not exist!\n");
             return;
         }
         
-        if (!record.isDirectory() && !record.isFile()) {
-            System.out.print("Error: it's not folder/file!");
-            return;
-        }
-        
-        String subtreePath = record.getAbsolutePath();
-        FileSystemGraphRepository.deleteSubtree(subtreePath);
+        FileSystemGraphRepository.deleteSubtree(path);
         
         // db.update
         

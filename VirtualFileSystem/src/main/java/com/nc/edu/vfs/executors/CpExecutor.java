@@ -40,22 +40,20 @@ public class CpExecutor {
     }
     
     public void execute() {
-        File file = new File(from);
-        
-        if (!file.exists()) {
-            System.out.println("Error: destination point does not exist!");
+        if (!FileSystemGraphRepository.contains(from)) {
+            System.out.print("Error: \'from\' destination point does not exist!\n");
             return;
         }
         
-        if (!file.isFile()) {
-            System.out.print("Error: it's not file!");
-            return;
-        }
+//        if (!file.isFile()) {
+//            System.out.print("Error: it's not file!\n");
+//            return;
+//        }
         
-        String destParent = null;
+        String destParent = "";
         
         for (int i = dest.length() - 1; i >= 0; i--) {
-            if (dest.charAt(i) == '/') {
+            if (dest.charAt(i) == '\\') {
                 destParent = dest.substring(0, i);
                 break;
             }
@@ -65,7 +63,7 @@ public class CpExecutor {
         
         for (int i = 0; i < destParent.length(); i++) {
             if (destParent.charAt(i) == '/') {
-                tempConcat.append("\\");
+                tempConcat.append('\\');
             } else {
                 tempConcat.append(destParent.charAt(i));
             }
@@ -76,14 +74,20 @@ public class CpExecutor {
         int pos = FileSystemGraphRepository.checkParentByPath(destParent);
         
         if (pos == -1) {
-            System.out.print("Error: can't copy to destination path");
+            System.out.print("Error: can't copy to destination path!\n");
             return;
+        }
+        
+        String parentPath = FileSystemGraphRepository.getParentPathById(pos);
+        
+        if (parentPath == null) {
+            System.out.print("Error: can't find parent of vertex!\n");
         }
         
         ScanExecutor.increaseId();
         Vertex vertex = new Vertex(ScanExecutor.getStaticId(), pos, dest);
         
-        FileSystemGraphRepository.pushVertex(vertex);
+        FileSystemGraphRepository.pushVertex(vertex, parentPath);
         
         // db.update
         

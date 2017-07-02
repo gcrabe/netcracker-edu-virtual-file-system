@@ -44,4 +44,11 @@ public class Vertex {
     public void setName(String name) {
         this.name = name;
     }
+    
+    @Override
+    public String toString() {
+        return "{id = " + this.id + ", "
+                + "parent = " + this.parent  + ", "
+                + "name = " + this.name + "}";
+    }
 }
