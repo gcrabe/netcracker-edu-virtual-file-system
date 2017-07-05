@@ -14,7 +14,7 @@ import java.io.File;
  *
  * @author gc
  */
-public class ScanExecutor {
+public class ScanExecutor implements Executable {
     
     private static String path;
     private static int id;
@@ -59,6 +59,7 @@ public class ScanExecutor {
         }
     }
     
+    @Override
     public void execute() {
         File rootDirectory = new File(path);
         

@@ -48,16 +48,16 @@ public class TerminalListener {
             String commandLine = scanner.nextLine();
             CommandInfo info = CommandParser.parseCommand(commandLine);
             
-            if (info.getCommand().equals(ERROR)) {
+            if (ERROR.equals(info.getCommand())) {
                 System.out.print("Error: Command not supported or incorrect format of command!\n");
                 System.out.print("Use \'help\' to find correct commands info\n");
             }
             
-            if (info.getCommand().equals(EXIT)) {
+            if (EXIT.equals(info.getCommand())) {
                 break;
             }
             
-            if (info.getCommand().equals(SCAN)) {
+            if (SCAN.equals(info.getCommand())) {
                 String path = info.getArguments()[1];
                 se = new ScanExecutor(path);
                 se.execute();
@@ -66,20 +66,20 @@ public class TerminalListener {
             if (!scanInited(info)) {
                 System.out.print("Error: \'scan\' command must be executed at least once\n");
             } else {
-                if (info.getCommand().equals(RM)) {
+                if (RM.equals(info.getCommand())) {
                     String path = info.getArguments()[1];
                     re = new RmExecutor(path);
                     re.execute();
                 }
                 
-                if (info.getCommand().equals(CP)) {
+                if (CP.equals(info.getCommand())) {
                     String from = info.getArguments()[1];
                     String dest = info.getArguments()[2];
                     ce = new CpExecutor(from, dest);
                     ce.execute();
                 }
                 
-                if (info.getCommand().equals(MV)) {
+                if (MV.equals(info.getCommand())) {
                     String from = info.getArguments()[1];
                     String dest = info.getArguments()[2];
                     me = new MvExecutor(from, dest);
@@ -87,7 +87,7 @@ public class TerminalListener {
                 }
             }
             
-            if (info.getCommand().equals(HELP)) {
+            if (HELP.equals(info.getCommand())) {
                 String help = "INFORMATION:\n" +
                         "Use \' for framing path strings\n" +
                         "Write full extensions\n" +

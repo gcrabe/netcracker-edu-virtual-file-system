@@ -13,7 +13,7 @@ import com.nc.edu.vfs.graph.Vertex;
  *
  * @author gc
  */
-public class CpExecutor {
+public class CpExecutor implements Executable{
     
     private String from;
     private String dest;
@@ -39,6 +39,7 @@ public class CpExecutor {
         this.dest = dest;
     }
     
+    @Override
     public void execute() {
         if (!FileSystemGraphRepository.contains(from)) {
             System.out.print("Error: \'from\' destination point does not exist!\n");

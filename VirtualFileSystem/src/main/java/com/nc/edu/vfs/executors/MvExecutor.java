@@ -9,37 +9,17 @@ package com.nc.edu.vfs.executors;
  *
  * @author gc
  */
-public class MvExecutor {
-    
-    private String from;
-    private String dest;
+public class MvExecutor extends CpExecutor{
     
     public MvExecutor(String from, String dest) {
-        this.from = from;
-        this.dest = dest;
+        super(from, dest);
     }
     
-    public String getFrom() {
-        return from;
-    }
-    
-    public void setFrom(String from) {
-        this.from = from;
-    }
-    
-    public String getDest() {
-        return dest;
-    }
-    
-    public void setDest(String dest) {
-        this.dest = dest;
-    }
-    
+    @Override
     public void execute() {
-        CpExecutor ce = new CpExecutor(from, dest);
-        ce.execute();
+        super.execute();
         
-        RmExecutor re = new RmExecutor(from);
+        RmExecutor re = new RmExecutor(super.getFrom());
         re.execute();
     }
 }

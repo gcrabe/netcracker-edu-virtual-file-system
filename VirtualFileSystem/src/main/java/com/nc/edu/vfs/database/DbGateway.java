@@ -7,12 +7,16 @@ package com.nc.edu.vfs.database;
 
 import com.nc.edu.vfs.graph.FileSystemGraphRepository;
 import com.nc.edu.vfs.graph.Vertex;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,9 +26,37 @@ import java.util.logging.Logger;
  */
 public class DbGateway {
     
-    private static final String URL = "jdbc:mysql://localhost:3307/vfs_db?zeroDateTimeBehavior=convertToNull";
-    private static final String USER = "root";
-    private static final String PASS = "usbw";
+    private static String URL = "jdbc:mysql://localhost:3307/vfs_db?zeroDateTimeBehavior=convertToNull";
+    private static String USER = "root";
+    private static String PASS = "usbw";
+    
+//    private static void setProterties() {
+//        FileInputStream fis = null;
+//        Properties properties = new Properties();
+//        
+//        try {
+//            fis = new FileInputStream("src/main/resources/dbconfig.properties");
+//            properties.load(fis);
+//            
+//            URL = properties.getProperty("db.url");
+//            USER = properties.getProperty("db.user");
+//            PASS = properties.getProperty("db.pass");
+//        } catch (FileNotFoundException ex) {
+//            Logger.getLogger(DbGateway.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.print("Error: property file not found!\n");
+//        } catch (IOException ex) {
+//            Logger.getLogger(DbGateway.class.getName()).log(Level.SEVERE, null, ex);
+//            System.out.print("Error: incorrect loading of properties!\n");
+//        } finally {
+//            if (fis != null) {
+//                try {
+//                    fis.close();
+//                } catch (IOException ex) {
+//                    Logger.getLogger(DbGateway.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            }
+//        }
+//    }
     
     private static Connection getConnection() {
         Connection connection = null;

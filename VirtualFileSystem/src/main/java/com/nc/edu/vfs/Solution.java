@@ -18,6 +18,7 @@ public class Solution {
         System.out.print("Write \'exit\' for exit from the application.\n");
         System.out.print("Write \'help\' for help infarmation.\n");
         
+        //DbGateway.setProterties();
         TerminalListener.waitForCommand();
     }
 }

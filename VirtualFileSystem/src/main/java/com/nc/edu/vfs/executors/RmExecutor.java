@@ -12,7 +12,7 @@ import com.nc.edu.vfs.graph.FileSystemGraphRepository;
  *
  * @author gc
  */
-public class RmExecutor {
+public class RmExecutor implements Executable {
     
     private String path;
     
@@ -28,6 +28,7 @@ public class RmExecutor {
         this.path = path;
     }
     
+    @Override
     public void execute() {
         if (!FileSystemGraphRepository.contains(path)) {
             System.out.print("Error: destination point does not exist!\n");
